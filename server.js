@@ -24,7 +24,7 @@ io.on('connection', socket =>{
         //Mensaje a todos los clientes o usuario, excepto el que se esta conectando en el momento
         socket.broadcast.to(user.room).emit('message', formatMessage(botName,`${user.username} se ha conectado al chat`));
 
-        socket.broadcast.to(user.room).emit('message', formatMessage(botName,`los usuarios conectados son: ${JSON.stringify(getRoomUsers(user.room))}`))
+        socket.broadcast.to(user.room).emit('message', formatMessage(botName,`los usuarios conectados son: ${getRoomUsers(user.room).map((user) => { return user.username })}`))
 
         //Mandar usuarios y sala
         io.to(user.room).emit('roomUsers',{room:user.room, users: getRoomUsers(user.room)});
